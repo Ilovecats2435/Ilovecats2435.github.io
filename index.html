@@ -1,10 +1,351 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>My Website</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Frost Legion Demonlist</title>
+  <style>
+    :root {
+      --bg: #0b1220;
+      --panel: #111a2d;
+      --text: #e8f0ff;
+      --muted: #9bb2d4;
+      --accent: #5fd3ff;
+      --accent2: #7c6bff;
+      --border: #223156;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: radial-gradient(circle at 15% 0%, #1b294f 0%, #0b1220 42%, #05080f 100%);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.45;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(5, 10, 20, 0.9);
+      backdrop-filter: blur(4px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .top-bar {
+      width: min(1100px, 94%);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.7rem 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      color: #fff;
+    }
+    .logo .pill { background:#3c7eff; padding: 0.15rem 0.4rem; border-radius: 999px; font-size: 0.7rem; font-weight:600; }
+
+    .menu-btn {
+      border: 1px solid rgba(255,255,255,.2);
+      color: white;
+      background: #1c2f5f;
+      border-radius: 6px;
+      padding: 0.45rem 0.7rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .layout {
+      width: min(1100px, 94%);
+      margin: 1rem auto 2rem;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 1rem;
+      min-height: calc(100vh - 120px);
+    }
+
+    .sidebar {
+      background: rgba(16, 24, 42, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      padding: 1rem;
+      position: sticky;
+      top: 1rem;
+      height: fit-content;
+      max-height: calc(100vh - 2rem);
+      overflow: auto;
+    }
+
+    .sidebar h2 { margin-top: 0; color: #e4ecff; font-size: 1.02rem; }
+    .nav-list { list-style: none; margin: 0; padding: 0; }
+    .nav-item { margin-bottom: 0.45rem; }
+    .nav-item button {
+      width: 100%;
+      border: 0;
+      border-radius: 8px;
+      background: #1a284f;
+      color: #eaf0ff;
+      padding: 0.55rem 0.65rem;
+      text-align:left;
+      cursor:pointer;
+      font: inherit;
+      border: 1px solid rgba(255,255,255,.08);
+      transition: all .15s ease;
+    }
+    .nav-item button:hover { transform: translateY(-1px); background: #2a407c; }
+
+    .main {
+      background: rgba(9, 17, 32, 0.85);
+      border: 1px solid #2d416f;
+      border-radius: 16px;
+      padding: 1rem 1rem 1.1rem;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      backdrop-filter: blur(4px);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #3849a5, #0f1f58 55%, #0a101f);
+      margin: 0 -1rem 1rem;
+      border-radius: 12px;
+      padding: 1rem;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .hero h1 { margin: 0; font-size: clamp(1.5rem, 5vw, 2.2rem); }
+    .hero p { margin: 0.45rem 0 0; color: #d8e2ff; }
+
+    .section {
+      margin-top: 1rem;
+      padding: 0;
+    }
+    .section h3 {
+      margin: 0 0 0.5rem;
+      border-left: 3px solid #57daff;
+      padding-left: 0.6rem;
+      color: #edf4ff;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.7rem;
+    }
+
+    .card {
+      background: #111a34;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 10px;
+      padding: 0.7rem;
+      box-shadow: 0 6px 14px rgba(0,0,0,.25);
+    }
+    .card strong { color: #b6d2ff; }
+    .card p { color: #d0dbf3; margin: 0.35rem 0 0; font-size: 0.9rem; }
+
+    .button-row { display:flex; flex-wrap: wrap; gap:0.5rem; margin-top: 0.3rem; }
+    .btn { border: none; border-radius: 8px; background: #4070ff; color: white; padding: 0.35rem 0.6rem; cursor:pointer; font-size: 0.85rem; }
+    .btn-secondary { background: #2d3f6e; }
+    .btn-accent { background: #2f9fff; }
+
+    .footer {
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.9rem;
+      color: #9eb0d8;
+    }
+
+    .hidden { display: none !important; }
+    .sidebar-mobile {
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 260px;
+      z-index: 30;
+      transform: translateX(-102%);
+      transition: transform 0.2s ease;
+      border-right: 1px solid #2c3a66;
+    }
+
+    .sidebar-mobile.open { transform: translateX(0); }
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      display: none;
+      z-index: 25;
+    }
+    .overlay.open { display:block; }
+
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { display:none; }
+      .main { min-height: 80vh; }
+    }
+  </style>
 </head>
 <body>
-  <h1>Hello world! ^w^</h1>
-  <p>This is my GitHub Pages site :3</p>
+  <!-- Top site header with the menu button and branding -->
+  <header>
+    <div class="top-bar">
+      <div class="logo"><span style="font-size:1.1rem;">❄️</span> Frost Legion Demonlist <span class="pill">v1</span></div>
+      <button id="openMenu" class="menu-btn">☰ Menu</button>
+    </div>
+  </header>
+
+  <!-- Mobile slide-out sidebar for small screens -->
+  <div id="mobileSidebar" class="sidebar-mobile">
+    <div style="padding:1rem;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.8rem;">
+        <div style="font-weight:700; color:#fff;">Frost Legion</div>
+        <button id="closeMenu" class="menu-btn" style="padding:0.2rem 0.45rem;">✕</button>
+      </div>
+      <nav>
+        <ul class="nav-list">
+          <li class="nav-item"><button data-target="home">Home</button></li>
+          <li class="nav-item"><button data-target="demon-list">Demon List</button></li>
+          <li class="nav-item"><button data-target="submit">Submit</button></li>
+          <li class="nav-item"><button data-target="about">About</button></li>
+          <li class="nav-item"><button data-target="contact">Contact</button></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div id="overlay" class="overlay"></div>
+
+  <div class="layout">
+    <!-- Desktop sidebar (hidden on small screens) -->
+    <aside class="sidebar" id="desktopSidebar">
+      <h2>Pages</h2>
+      <ul class="nav-list">
+        <li class="nav-item"><button data-target="home">🏠 Home</button></li>
+        <li class="nav-item"><button data-target="demon-list">🔥 Demon List</button></li>
+        <li class="nav-item"><button data-target="submit">📮 Submit</button></li>
+        <li class="nav-item"><button data-target="about">ℹ️ About</button></li>
+        <li class="nav-item"><button data-target="contact">✉️ Contact</button></li>
+      </ul>
+    </aside>
+
+    <main class="main">
+      <section id="home" class="section">
+        <div class="hero">
+          <h1>Frost Legion Demonlist</h1>
+          <p>Welcome to the Geometry Dash Demonlist tracker. Use this page to view demons, submit new demons, and find team rules. This is a single-page layout inspired by your Google Sites design.</p>
+        </div>
+
+        <h3>Quick Links</h3>
+        <div class="button-row">
+          <button class="btn" data-target="demon-list">Open Demon List</button>
+          <button class="btn btn-secondary" data-target="submit">Submit a Demon</button>
+          <button class="btn btn-accent" data-target="about">Team Info</button>
+        </div>
+      </section>
+
+      <section id="demon-list" class="section">
+        <h3>Demon List (Current Picks)</h3>
+        <div class="grid">
+          <article class="card">
+            <strong>#1 Frostbite Fury</strong>
+            <p>Difficulty: Insane Demon • Creator: FrostKnight • Reason: Smooth gameplay + cool visuals</p>
+            <div class="button-row"><button class="btn btn-secondary">Watch</button><button class="btn btn-accent">Add Note</button></div>
+          </article>
+          <article class="card">
+            <strong>#2 Polar Prism</strong>
+            <p>Difficulty: Extreme Demon • Creator: IcePixel • Reason: Unique trap design</p>
+            <div class="button-row"><button class="btn btn-secondary">Watch</button><button class="btn btn-accent">Add Note</button></div>
+          </article>
+          <article class="card">
+            <strong>#3 Blizzard Blitz</strong>
+            <p>Difficulty: Hard Demon • Creator: GlacialGamer • Reason: Nice flow and timing</p>
+            <div class="button-row"><button class="btn btn-secondary">Watch</button><button class="btn btn-accent">Add Note</button></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="submit" class="section">
+        <h3>Submit a Demon</h3>
+        <div class="card" style="background:#162444;">
+          <p>Use this form as a template for your own Google Forms or GitHub Issue link. This site is static, so we show the details you should gather: Demon name, difficulty, creator, reason.</p>
+          <ul style="margin:0.4rem 0 0 1rem; color:#c3d2ff;">
+            <li><strong>Required:</strong> Demon name</li>
+            <li><strong>Required:</strong> Difficulty (Insane Demon, Extreme Demon, etc.)</li>
+            <li><strong>Required:</strong> Creator + verification link</li>
+            <li><strong>Optional:</strong> Notes from team check</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="about" class="section">
+        <h3>About Frost Legion</h3>
+        <div class="card" style="border-left: 4px solid #79d7ff;">
+          <p><strong>Frost Legion Demonlist</strong> is a community-run Geometry Dash list. We gather demon levels and rank them by team consensus. This page is built as a static GitHub Pages site, with HTML/CSS/JS only.</p>
+          <p>How this works:</p>
+          <ul style="margin:0.2rem 0 0 1rem; color:#c8d8ff;">
+            <li>We keep a list of candidate demons.</li>
+            <li>Team members test and review each demon.</li>
+            <li>Approved demons stay on the list until rotated.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="contact" class="section">
+        <h3>Contact</h3>
+        <div class="card">
+          <p>If you want to update this site or coordinate with the team:</p>
+          <p><strong>Discord:</strong> FrostLegion#1234 <br /><strong>Google Site:</strong> <a href="https://sites.google.com/view/frost-legion-demonlist/home" style="color:#7ad4ff;">frost-legion-demonlist/home</a></p>
+          <p>Page source is on GitHub Pages, so edit your `index.html` and commit to publish.</p>
+        </div>
+      </section>
+
+      <div class="footer">Built for Frost Legion Demonlist. This site uses in-page navigation and a mobile drawer side menu.</div>
+    </main>
+  </div>
+
+  <script>
+    // JavaScript for the sidebar menu and section navigation
+    const openBtn = document.getElementById('openMenu');
+    const closeBtn = document.getElementById('closeMenu');
+    const mobileSide = document.getElementById('mobileSidebar');
+    const overlay = document.getElementById('overlay');
+
+    function openMenu() {
+      mobileSide.classList.add('open');
+      overlay.classList.add('open');
+    }
+    function closeMenu() {
+      mobileSide.classList.remove('open');
+      overlay.classList.remove('open');
+    }
+
+    openBtn.addEventListener('click', openMenu);
+    closeBtn.addEventListener('click', closeMenu);
+    overlay.addEventListener('click', closeMenu);
+
+    // Smooth scroll whenever a nav button is clicked
+    function scrollToSection(event) {
+      const target = event.currentTarget.getAttribute('data-target');
+      if (!target) return;
+      const section = document.getElementById(target);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      closeMenu();
+    }
+
+    document.querySelectorAll('[data-target]').forEach(btn => {
+      btn.addEventListener('click', scrollToSection);
+    });
+  </script>
 </body>
 </html>
