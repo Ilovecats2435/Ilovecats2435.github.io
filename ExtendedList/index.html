@@ -3,34 +3,59 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Frost Legion Demonlist - ExtendedList</title>
+  <title>Frost Legion Demonlist - Extended List</title>
   <style>
-    body{margin:0;font-family:Inter,system-ui,sans-serif;background:#070b18;color:#eaf0ff;}
-    .page{max-width:960px;margin:0 auto;padding:1rem;}
-    nav{display:flex;flex-wrap:wrap;gap:.4rem;background:#111b38;padding:.45rem;border-radius:.5rem;border:1px solid #294e9e;}
-    nav a{color:#dbe6ff;text-decoration:none;padding:.35rem .7rem;border-radius:.4rem;background:#1d376f;transition:.15s;}
-    nav a:hover{background:#2d56b8;}
-    h1{margin:.7rem 0 .2rem;}
-    .blank{background:#111b36;border:1px solid #2d4a8b;border-radius:.6rem;padding:.8rem;margin-top:1rem;}
-    .contact{background:#000;border:1px solid #333;color:#fff;padding:.8rem;border-radius:.5rem;margin-top:1rem;}
+    :root {{--bg:#070b18;--panel:#111b36;--text:#eaf0ff;--muted:#a8bddf;--accent:#5eaaff;}}
+    * {{box-sizing:border-box;}}
+    body {{margin:0;font-family:Inter,system-ui,sans-serif;background:linear-gradient(180deg,#08112b,#04080f);color:var(--text);min-height:100vh;}}
+    .topbar {{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:.5rem;padding:.45rem .9rem;background:rgba(2,10,28,.95);border-bottom:1px solid #2a3d78;}}
+    .hamburger {{cursor:pointer;border:0;background:#1c2f6f;color:white;padding:.38rem .65rem;border-radius:.4rem;font-weight:700;}}
+    .title {{font-weight:700;font-size:.9rem;}}
+    .page {{max-width:960px;margin:0 auto;padding:1rem;}}
+    .hero {{background:linear-gradient(130deg,#243c8f,#0f1f52);border-radius:.7rem;border:1px solid #2f4f9f;padding:.8rem;}}
+    .hero h1 {{margin:.2rem 0 .2rem;}}
+    .hero p {{margin:.25rem 0 0;color:#d7e5ff;}}
+    .box {{background:var(--panel);border:1px solid #223e7f;border-radius:.7rem;padding:.8rem;margin-top:1rem;}}
+    .contact {{background:#000;border:1px solid #333;color:#fff;padding:.8rem;border-radius:.5rem;margin-top:1rem;}}
+    .sidemenu {{position:fixed;left:0;top:0;bottom:0;width:250px;background:rgba(7,12,40,.98);transform:translateX(-106%);transition:transform .2s ease;z-index:40;border-right:1px solid #2f4f9f;padding:1rem;}}
+    .sidemenu.open {{transform:translateX(0);}}
+    .sidemenu h2 {{margin:.05rem 0 .65rem;color:#fff;}}
+    .sidemenu a {{display:block;text-decoration:none;color:#e6edff;padding:.38rem .5rem;border-radius:.35rem;margin:.2rem 0;background:#162957;}}
+    .sidemenu a:hover {{background:#2a4b9b;}}
+    .overlay {{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;z-index:35;}}
+    .overlay.open {{display:block;}}
   </style>
 </head>
 <body>
+  <div class="topbar">
+    <button class="hamburger" id="hamburger">☰</button>
+    <div class="title">Frost Legion Demonlist - Extended List</div>
+  </div>
+  <div class="sidemenu" id="sidemenu">
+    <h2>Menu</h2>
+    <a href="/home/">Home</a>
+    <a href="/MainList/">Main List</a>
+    <a href="/ExtendedList/">Extended List</a>
+    <a href="/PlatformerList/">Platformer List</a>
+    <a href="/ImpossibleList/">Impossible List</a>
+    <a href="/Submit/">Submit</a>
+    <a href="/About/">About</a>
+    <a href="/">Root</a>
+  </div>
+  <div class="overlay" id="overlay"></div>
   <div class="page">
-    <nav>
-      <a href="/home/">Home</a>
-      <a href="/MainList/">Main List</a>
-      <a href="/ExtendedList/">Extended List</a>
-      <a href="/PlatformerList/">Platformer List</a>
-      <a href="/ImpossibleList/">Impossible List</a>
-      <a href="/Submit/">Submit</a>
-      <a href="/About/">About</a>
-    </nav>
-    <h1>ExtendedList</h1>
-    <div class="blank">
-      <p>(This is a blank page for ExtendedList. Add your demon list details here.)</p>
-    </div>
+    <div class="hero"><h1>Extended List</h1><p>Use the menu icon to open page links.</p></div>
+    <div class="box"><p>(Blank content for Extended List. Add your demon list details here.)</p></div>
     <div class="contact"><strong>Contact us</strong><br>Discord: m7ja3kcdMJ</div>
   </div>
+  <script>
+    const hamburger=document.getElementById('hamburger');
+    const sidemenu=document.getElementById('sidemenu');
+    const overlay=document.getElementById('overlay');
+    function openMenu(){sidemenu.classList.add('open');overlay.classList.add('open');}
+    function closeMenu(){sidemenu.classList.remove('open');overlay.classList.remove('open');}
+    hamburger.addEventListener('click',openMenu);
+    overlay.addEventListener('click',closeMenu);
+  </script>
 </body>
 </html>
