@@ -8,10 +8,7 @@
     :root {--bg:#0b1220;--panel:#101a33;--card:#12244f;--text:#eff4ff;--muted:#b3c7ed;--accent:#59cdff;--border:#2f4f9a;}
     *{box-sizing:border-box;}
     body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:radial-gradient(circle at 15% 0%,#1b294f 0%,#0b1220 42%,#05080f 100%);color:var(--text);}
-    .topbar{position:sticky;top:0;z-index:30;background:rgba(6,12,30,.95);border-bottom:1px solid rgba(255,255,255,.08);padding:.55rem 1rem;display:flex;align-items:center;gap:.6rem;}
-    .menubtn{font-size:1.1rem;padding:.35rem .6rem;border-radius:.45rem;border:0;background:#194b94;color:white;cursor:pointer;}
-    .menuLabel{font-weight:700;color:#fff;}
-    .layout{display:grid;grid-template-columns:240px 1fr;gap:1rem;max-width:1200px;margin:1rem auto;padding:0 1rem;}
+.layout{display:grid;grid-template-columns:1fr;gap:1rem;max-width:1200px;margin:1rem auto;padding:0 1rem;}
     .sidebar{background:rgba(14,22,47,.95);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:.9rem;position:sticky;top:1rem;align-self:start;}
     .sidebar h2{margin:.2rem 0 .6rem;color:#fff;letter-spacing:.3px;}
     .sidebar ul{list-style:none;margin:0;padding:0;}
@@ -31,53 +28,51 @@
     .thumb{border:1px dashed #5f7ec7;border-radius:8px;background:#0a132a;min-height:120px;display:flex;align-items:center;justify-content:center;color:#a6bce4;font-size:.8rem;}
     .info{display:flex;flex-direction:column;gap:.25rem;}
     .by{font-weight:700;color:#b4d4ff;letter-spacing:.2px;}
-  <div class="mobile-sidebar" id="mobileSidebar">
-    <h3>Menu</h3>
+    .meta{font-size:.9rem;color:#dce8ff;margin:.1rem 0;}
+    .form-section{margin-top:1rem;border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:.8rem;background:#111f45;}
     .form-row{display:grid;grid-template-columns:1fr 150px;gap:.4rem;align-items:center;margin:.3rem 0;}
     .form-row label{font-size:.9rem;color:#c9d7f2;}
     .form-row input{width:100%;padding:.4rem .45rem;border-radius:.4rem;border:1px solid #3a5db6;background:#0d1d47;color:#fff;}
     .add-btn{background:#27a8ff;border:0;color:white;border-radius:.5rem;padding:.45rem .7rem;cursor:pointer;margin-top:.55rem;}
     .footer{margin-top:1rem;padding:.8rem 0;font-size:.85rem;color:#acbcdf;border-top:1px solid rgba(255,255,255,.1);}
-    .overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;z-index:200;}
-    .overlay.show{display:block;}
-    .mobile-sidebar{position:fixed;left:0;top:0;bottom:0;width:240px;background:#0b1334;transform:translateX(-102%);transition:transform .2s ease;z-index:210;padding:.8rem;overflow:auto;}
-    .mobile-sidebar.show{transform:translateX(0);}
-    .mobile-sidebar h3{margin:0 0 .5rem;color:#fff;}
-    .mobile-sidebar a{color:#dcdeff;text-decoration:none;display:block;margin:.3rem 0;padding:.3rem .4rem;border-radius:.35rem;}
-    .mobile-sidebar a:hover{background:#1d3f8f;}
-
-
-  </style>
+@media (max-width:900px){.layout{grid-template-columns:1fr;padding:0;}.sidebar{display:none;}}
+  
+.topbar{position:sticky;top:0;z-index:400;background:rgba(8,12,30,.96);padding:.45rem 1rem;display:flex;align-items:center;gap:.6rem;border-bottom:1px solid rgba(255,255,255,.08);}
+.hamburger{font-size:1.2rem;background:none;border:1px solid #3f5bc8;border-radius:.3rem;color:#fff;padding:.2rem .45rem;cursor:pointer;}
+.topbar-title{font-weight:700;color:#fff;}
+.left-menu{position:fixed;left:.4rem;top:3.6rem;background:#0b1334;border:1px solid #2d4e9f;border-radius:.5rem;padding:.45rem .5rem;display:none;z-index:450;min-width:190px;}
+.left-menu.show{display:block;}
+.left-menu a{display:block;color:#dbe6ff;text-decoration:none;padding:.2rem 0;border-radius:.2rem;}
+.left-menu a:hover{background:#1f3f8f;}
+.left-menu .menu-section{margin:.35rem 0 .15rem;color:#9db8ff;font-size:.8rem;letter-spacing:.3px;}
+</style>
 </head>
 <body>
-  <div class="topbar">
-    <button class="menubtn" id="menuBtn">☰</button>
-    <div class="menuLabel">Menu</div>
-  </div>
-  <div class="mobile-sidebar" id="mobileSidebar">
-    <h3>Menu</h3>
-    <a href="/home/">Home</a>
-    <a href="/MainList/">Main List</a>
-    <a href="/ExtendedList/">Extended List</a>
-    <a href="/PlatformerList/">Platformer List</a>
-    <a href="/ImpossibleList/">Impossible List</a>
-    <a href="/Submit/">Submit</a>
-    <a href="/About/">About</a>
-  </div>
-  <div class="overlay" id="overlay"></div>
-  <div class="page">
-    <div class="hero"><h1>Home</h1><p>Use the menu icon to open page links.</p></div>
-    <div class="box"><p>(Blank content for Home. Add your demon list details here.)</p></div>
-    <div class="contact"><strong>Contact us</strong><br>Discord: m7ja3kcdMJ</div>
+<div class="topbar"><button id="menuBtn" class="hamburger">☰</button><div class="topbar-title">Frost Legion Demonlist</div></div>
+<div id="leftMenu" class="left-menu hidden">
+  <a href="/home/">Home</a>
+  <div class="menu-section">Lists</div>
+  <a href="/MainList/">Main List</a>
+  <a href="/ExtendedList/">Extended List</a>
+  <a href="/ImpossibleList/">Impossable List</a>
+  <a href="/PlatformerList/">Platformer list</a>
+  <div class="menu-section">More</div>
+  <a href="/PlayerStats/">Player Stats</a>
+  <a href="/Submit/">Submit</a>
+</div>
+
+<div class="layout">
+<main class="content">
+      <div class="hero"><h1>Home</h1><p>The Frost Legion Demonlist is a list dedicated to Frozenvyper's server (Frost Legion). It has the main list, the impossible list, and the platformer list.<br>To view them, look down below (Or click the three lines in the top left)</p></div>
+      <div class="footer">Contact us: Discord: m7ja3kcdMJ</div>
+    </main>
   </div>
   <script>
-    const hamburger=document.getElementById('hamburger');
-    const sidemenu=document.getElementById('sidemenu');
-    const overlay=document.getElementById('overlay');
-    function openMenu(){sidemenu.classList.add('open');overlay.classList.add('open');}
-    function closeMenu(){sidemenu.classList.remove('open');overlay.classList.remove('open');}
-    hamburger.addEventListener('click',openMenu);
-    overlay.addEventListener('click',closeMenu);
-  </script>
+const menuBtn=document.getElementById('menuBtn');
+const leftMenu=document.getElementById('leftMenu');
+if(menuBtn){menuBtn.addEventListener('click',()=>{leftMenu?.classList.toggle('show');});}
+const toggles=document.querySelectorAll('.toggle');
+toggles.forEach(btn=>{btn.addEventListener('click',()=>{const show=document.getElementById(btn.dataset.target); if(!show) return; const hidden=show.classList.toggle('hidden'); btn.textContent=(hidden?'▸':'▾')+' '+btn.textContent.slice(2);});});
+</script>
 </body>
 </html>
