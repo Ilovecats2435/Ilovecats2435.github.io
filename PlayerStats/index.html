@@ -83,11 +83,14 @@ toggles.forEach(btn=>{btn.addEventListener('click',()=>{const show=document.getE
     
 
     const container = document.createElement('div');
-    container.style.position = 'fixed';
-    container.style.top = '4.5rem';
-    container.style.left = '50%';
-    container.style.transform = 'translateX(-50%)';
-    container.style.zIndex = '9999';
+container.style.margin = '20px auto'; // Centers it with spacing
+container.style.display = 'flex';
+container.style.flexDirection = 'column';
+container.style.alignItems = 'center';
+
+// Instead of document.body.appendChild, target your content area:
+const mainContent = document.querySelector('.content');
+mainContent.appendChild(container);
 
     stats.forEach((player, i) => {
       const box = document.createElement('div');
@@ -109,12 +112,6 @@ toggles.forEach(btn=>{btn.addEventListener('click',()=>{const show=document.getE
     document.body.appendChild(container);
     
   </script>
-  .stats-container {
-    display: flex;
-    justify-content: space-between; /* Pushes text to left, list to right */
-    align-items: flex-start;        /* Keeps them aligned at the top */
-    padding: 20px;
-    gap: 20px;                      /* Adds breathing room between them */
-}
+  
 </body>
 </html>
