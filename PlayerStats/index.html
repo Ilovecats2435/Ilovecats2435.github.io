@@ -76,3 +76,34 @@ toggles.forEach(btn=>{btn.addEventListener('click',()=>{const show=document.getE
 </script>
 </body>
 </html>
+</div>
+  <script>
+    const stats = [
+      { rank: 1, name: "Ilikegrapes", points: 125 },
+      { rank: 2, name: "Ilovecats2435", points: 100 }
+    ];
+
+    const container = document.createElement('div');
+    container.style.position = 'fixed';
+    container.style.top = '4.5rem';
+    container.style.left = '50%';
+    container.style.transform = 'translateX(-50%)';
+    container.style.zIndex = '9999';
+
+    stats.forEach((player, i) => {
+      const box = document.createElement('div');
+      box.textContent = `${player.rank}. ${player.name}: ${player.points} points`;
+      box.style.background = '#182c5a';
+      box.style.color = '#fff';
+      box.style.border = '1px solid #3a5db6';
+      box.style.borderRadius = '7px';
+      box.style.padding = '0.35rem 1.2rem';
+      box.style.fontWeight = '600';
+      box.style.fontSize = '1.05rem';
+      box.style.marginTop = i === 0 ? '0' : '1px';
+      box.style.width = '340px';
+      box.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
+      container.appendChild(box);
+    });
+
+    document.body.appendChild(container);
